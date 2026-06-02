@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jesse Taylor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1612;
+    --rust: #C4522A;
+    --muted: #8A7F72;
+    --border: rgba(26,22,18,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.6;
+  }
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .nav-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--rust);
+    text-transform: uppercase;
+  }
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 48px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+  .hero-name {
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+  }
+  .hero-name em { font-style: italic; color: var(--rust); }
+  .hero-line {
+    width: 60px;
+    height: 1px;
+    background: var(--rust);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: expandLine 0.8s ease forwards 0.7s;
+  }
+  .hero-sub {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 580px;
+    color: var(--ink);
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.9s;
+  }
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  section {
+    padding: 80px 48px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 48px;
+  }
+  .career-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .career-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 40px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .career-item:first-child { border-top: 1px solid var(--border); }
+  .career-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    padding-top: 4px;
+    line-height: 1.8;
+  }
+  .career-meta strong {
+    display: block;
+    color: var(--rust);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+  .career-content h3 {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .career-content p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .about-text {
+    padding-right: 60px;
+    border-right: 1px solid var(--border);
+  }
+  .about-text p {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-aside {
+    padding-left: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+  }
+  .aside-item { border-left: 2px solid var(--rust); padding-left: 20px; }
+  .aside-item .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 6px;
+  }
+  .aside-item p {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .cta-section {
+    text-align: center;
+    padding: 100px 48px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .cta-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 32px;
+  }
+  .cta-headline {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+  }
+  .cta-headline em { font-style: italic; color: var(--rust); }
+  .cta-button {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--ink);
+    padding: 18px 48px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-right: 16px;
+  }
+  .cta-button:hover { background: var(--rust); transform: translateY(-2px); }
+  .cta-button.secondary {
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--ink);
+  }
+  .cta-button.secondary:hover { background: var(--ink); color: var(--cream); }
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer .f-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer .f-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes expandLine {
+    from { opacity: 0; width: 0; }
+    to { opacity: 1; width: 60px; }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (max-width: 700px) {
+    nav { padding: 16px 24px; }
+    .hero { padding: 120px 24px 60px; }
+    section { padding: 60px 24px; }
+    .career-item { grid-template-columns: 1fr; gap: 8px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-text { padding-right: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 40px; margin-bottom: 40px; }
+    .about-aside { padding-left: 0; }
+    .cta-section { padding: 80px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Jesse Taylor</span>
+  <span class="nav-tag">Account Executive Â· San Francisco</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Account Executive Â· San Francisco / New York</div>
+  <h1 class="hero-name">Seven years<br>selling <em>hard things</em><br>to hard buyers.</h1>
+  <div class="hero-line"></div>
+  <p class="hero-sub">I've spent my career in freight tech â Convoy, Parade, Vooma â selling software to operators and engineers who have high standards and low patience for a bad pitch. Now I'm looking for what's next.</p>
+</div>
+
+<div class="divider"></div>
+
+<section class="reveal">
+  <div class="section-label">01 â Background</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I run full-cycle sales â outbound to close. I've always generated my own pipeline and owned the deal from first email to signed contract.</p>
+      <p>Most of my buyers have been technical: operators, engineers, founders. I've learned to earn credibility through specifics rather than enthusiasm, and to diagnose a customer's problem before I talk about a solution.</p>
+      <p>I moved to the Bay Area because the most interesting work is happening here. I use AI tools every day, for my job and a side business I run. I'm looking for a sales role at a company that's building something that matters.</p>
+    </div>
+    <div class="about-aside">
+      <div class="aside-item">
+        <div class="label">Sales motion</div>
+        <p>Full-cycle, outbound-led. I know how to find the right person and take a deal from cold to closed without hand-holding.</p>
+      </div>
+      <div class="aside-item">
+        <div class="label">Buyer profile</div>
+        <p>Technical and operations buyers. Founders. Skeptical decision-makers who have been burned by software vendors before.</p>
+      </div>
+      <div class="aside-item">
+        <div class="label">What I'm looking for</div>
+        <p>A small number of teams building serious AI products. Not applying everywhere â taking this seriously.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="reveal">
+  <div class="section-label">02 â Experience</div>
+  <div class="career-list">
+    <div class="career-item">
+      <div class="career-meta">
+        <strong>Vooma</strong>
+        2023 â Present
+      </div>
+      <div class="career-content">
+        <h3>Account Executive</h3>
+        <p>AI-native freight tech startup. Full-cycle sales into mid-market and enterprise freight brokerages. Built pipeline from scratch in a new market segment.</p>
+      </div>
+    </div>
+    <div class="career-item">
+      <div class="career-meta">
+        <strong>Parade</strong>
+        2021 â 2023
+      </div>
+      <div class="career-content">
+        <h3>Account Executive</h3>
+        <p>Sold capacity management software to freight brokerages. Entered a market with no established proof points and built the playbook from the ground up. Hit quota.</p>
+      </div>
+    </div>
+    <div class="career-item">
+      <div class="career-meta">
+        <strong>Convoy</strong>
+        2018 â 2021
+      </div>
+      <div class="career-content">
+        <h3>Account Executive</h3>
+        <p>Digital freight network. Sold to shippers ranging from mid-market to enterprise. Learned enterprise sales motion, multi-stakeholder navigation, and how to close in a competitive market.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="cta-section reveal">
+  <div class="cta-eyebrow">Let's talk</div>
+  <h2 class="cta-headline">Find me in<br><em>30 minutes.</em></h2>
+  <a href="mailto:jt@jessetaylor.info" class="cta-button">Send me an email</a>
+  <a href="https://linkedin.com/in/jessetaylor" class="cta-button secondary">LinkedIn</a>
+</div>
+
+<footer>
+  <span class="f-name">Jesse Taylor Â· jt@jessetaylor.info</span>
+  <span class="f-note">San Francisco Â· 2026</span>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
