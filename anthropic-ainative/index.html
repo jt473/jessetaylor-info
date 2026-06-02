@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jesse Taylor â Account Executive, AI Native @ Anthropic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1612;
+    --rust: #C4522A;
+    --rust-light: #E8866A;
+    --muted: #8A7F72;
+    --border: rgba(26,22,18,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--rust);
+    text-transform: uppercase;
+  }
+
+  /* SECTIONS */
+  section { padding: 80px 48px; max-width: 900px; margin: 0 auto; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 120px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.4s;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .hero-line {
+    width: 60px;
+    height: 1px;
+    background: var(--rust);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: expandLine 0.8s ease forwards 0.7s;
+  }
+
+  .hero-sub {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 560px;
+    color: var(--ink);
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.9s;
+  }
+
+  .hero-sub strong {
+    font-weight: 600;
+  }
+
+  .hero-scroll {
+    margin-top: 80px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 1.2s;
+  }
+
+  .hero-scroll::before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 48px;
+    background: var(--muted);
+    animation: grow 1.2s ease forwards 1.4s;
+    transform-origin: top;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 48px;
+  }
+
+  /* WHY ANTHROPIC */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .why-text {
+    padding-right: 60px;
+    border-right: 1px solid var(--border);
+  }
+
+  .why-text p {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .why-text p:last-child { margin-bottom: 0; }
+
+  .why-aside {
+    padding-left: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .aside-item {
+    border-left: 2px solid var(--rust);
+    padding-left: 20px;
+  }
+
+  .aside-item .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 6px;
+  }
+
+  .aside-item p {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* PROOF POINTS */
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 48px;
+  }
+
+  .proof-item {
+    background: var(--cream);
+    padding: 40px 32px;
+    position: relative;
+    transition: background 0.3s ease;
+  }
+
+  .proof-item:hover {
+    background: rgba(196,82,42,0.04);
+  }
+
+  .proof-num {
+    font-size: 52px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--rust);
+    line-height: 1;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  .proof-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .proof-desc {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* QUOTE */
+  .quote-section {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 80px 48px;
+  }
+
+  .quote-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .quote-mark {
+    font-size: 80px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--rust);
+    line-height: 0.8;
+    margin-top: -8px;
+  }
+
+  .quote-text {
+    font-size: 26px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .quote-attribution {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+  }
+
+  /* WHAT I BRING */
+  .bring-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .bring-item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 32px;
+    align-items: start;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bring-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .bring-index {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--rust);
+    padding-top: 4px;
+  }
+
+  .bring-content h3 {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .bring-content p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    padding: 100px 48px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .cta-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 32px;
+  }
+
+  .cta-headline {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+  }
+
+  .cta-headline em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .cta-button {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    background: var(--ink);
+    padding: 18px 48px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-right: 16px;
+  }
+
+  .cta-button:hover {
+    background: var(--rust);
+    transform: translateY(-2px);
+  }
+
+  .cta-button.secondary {
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--ink);
+  }
+
+  .cta-button.secondary:hover {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  footer .f-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  footer .f-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes expandLine {
+    from { opacity: 0; width: 0; }
+    to { opacity: 1; width: 60px; }
+  }
+
+  @keyframes grow {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    nav { padding: 16px 24px; }
+    section { padding: 60px 24px; }
+    .hero { padding: 120px 24px 60px; }
+    .why-grid { grid-template-columns: 1fr; }
+    .why-text { padding-right: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 40px; margin-bottom: 40px; }
+    .why-aside { padding-left: 0; }
+    .proof-grid { grid-template-columns: 1fr; }
+    .quote-section { padding: 60px 24px; }
+    .cta-section { padding: 80px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .bring-item { grid-template-columns: 32px 1fr; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Jesse Taylor</span>
+  <span class="nav-tag">Account Executive, AI Native</span>
+</nav>
+
+<!-- HERO -->
+<div style="padding: 0 48px; max-width: 948px; margin: 0 auto;">
+  <div class="hero">
+    <div class="hero-eyebrow">Account Executive, AI Native Â· San Francisco / New York</div>
+    <h1 class="hero-name">I find the<br><em>right people.</em><br>Then I close them.</h1>
+    <div class="hero-line"></div>
+    <p class="hero-sub">I've spent my career selling technology that changes how freight moves. I want to spend the next decade selling technology that changes how work gets done.</p>
+    <div class="hero-scroll">Scroll to explore</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- WHY ANTHROPIC -->
+<section class="reveal">
+  <div class="section-label">01 â Why Anthropic</div>
+  <div class="why-grid">
+    <div class="why-text">
+      <p>The AI Native role is about selling to founders and technical buyers who move fast, have high expectations, and can smell a generic pitch from across a Zoom call. That's a description of every buyer I've worked with in freight tech.</p>
+      <p>I've spent years selling into companies that were skeptical, cash-conscious, and already had ten vendors fighting for their attention. I know how to get to the right person, earn credibility quickly, and run a tight cycle.</p>
+      <p>I use Claude every day â for my own work and a side business I run. When a founder asks a hard question about the product, I'm not reaching for a one-pager.</p>
+    </div>
+    <div class="why-aside">
+      <div class="aside-item">
+        <div class="label">On the buyer</div>
+        <p>Startup founders are demanding buyers. They want a partner who understands their stack, their timeline, and what they're actually trying to build.</p>
+      </div>
+      <div class="aside-item">
+        <div class="label">On the product</div>
+        <p>I use Claude daily. When technical questions come up in a deal, I can answer from experience rather than escalating to a solutions engineer.</p>
+      </div>
+      <div class="aside-item">
+        <div class="label">On the timing</div>
+        <p>The fastest-growing startups are making AI infrastructure decisions right now. The AE who builds those relationships early will own the expansion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROOF POINTS -->
+<section class="reveal">
+  <div class="section-label">02 â What I've Built</div>
+  <div class="proof-grid">
+    <div class="proof-item">
+      <div class="proof-num">7</div>
+      <div class="proof-label">Years in full-cycle tech sales</div>
+      <div class="proof-desc">Convoy, Parade, Vooma. Early-stage scrappy to structured mid-market. I've owned the full cycle at every stop.</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">~30</div>
+      <div class="proof-label">Days average to first close</div>
+      <div class="proof-desc">Startup deals move fast or they die. I've learned to qualify quickly, advance hard, and know when to walk.</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-num">0â1</div>
+      <div class="proof-label">Market entry playbooks built</div>
+      <div class="proof-desc">At Parade, I sold into a market with no proof points. I built the playbook from scratch and hit quota doing it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-section reveal">
+  <div class="quote-inner">
+    <div class="quote-mark">"</div>
+    <div>
+      <p class="quote-text">Jesse doesn't just move paper. He diagrams the customer's world back to them and makes the ROI feel inevitable.</p>
+      <div class="quote-attribution">â Former Manager, Freight Tech Â· Available on request</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT I BRING -->
+<section class="reveal">
+  <div class="section-label">03 â What I Bring</div>
+  <div class="bring-list">
+    <div class="bring-item">
+      <div class="bring-index">01</div>
+      <div class="bring-content">
+        <h3>Full-cycle ownership from outbound to close</h3>
+        <p>I've always generated my own pipeline. I know how to find the right person at a company, get a first conversation, and take it from there without hand-holding.</p>
+      </div>
+    </div>
+    <div class="bring-item">
+      <div class="bring-index">02</div>
+      <div class="bring-content">
+        <h3>Selling to skeptical technical buyers</h3>
+        <p>At Convoy and Parade, my buyers were operators and engineers who had been burned by software vendors before. I learned to earn credibility through specifics, not enthusiasm.</p>
+      </div>
+    </div>
+    <div class="bring-item">
+      <div class="bring-index">03</div>
+      <div class="bring-content">
+        <h3>Product credibility from real use</h3>
+        <p>I've been using Claude to run a side business and do actual work for over a year. I can walk a technical founder through what the API does and have a real conversation about it.</p>
+      </div>
+    </div>
+    <div class="bring-item">
+      <div class="bring-index">04</div>
+      <div class="bring-content">
+        <h3>A targeted search</h3>
+        <p>I moved to the Bay Area specifically for this. Anthropic is at the top of my list. I'm not applying everywhere â I'm talking to a small number of teams I actually want to work with.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="divider"></div>
+<div class="cta-section reveal">
+  <div class="cta-eyebrow">Let's talk</div>
+  <h2 class="cta-headline">Let's find<br><em>30 minutes.</em></h2>
+  <a href="mailto:jt@jessetaylor.info" class="cta-button">Send me an email</a>
+  <a href="https://linkedin.com/in/jessetaylor" class="cta-button secondary">LinkedIn</a>
+</div>
+
+<footer>
+  <span class="f-name">Jesse Taylor Â· jt@jessetaylor.info</span>
+  <span class="f-note">Built for the AI Native team at Anthropic Â· June 2026</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
