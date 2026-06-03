@@ -5,24 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jesse Taylor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --cream: #F5F0E8;
-    --ink: #1A1612;
-    --rust: #C4522A;
-    --muted: #8A7F72;
-    --border: rgba(26,22,18,0.12);
+    --sand: #F8F4ED;
+    --bark: #2C1A0E;
+    --amber: #B87333;
+    --dust: #8A7B6A;
+    --border: rgba(44,26,14,0.10);
   }
   html { scroll-behavior: smooth; }
   body {
-    background: var(--cream);
-    color: var(--ink);
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 18px;
+    background: var(--sand);
+    color: var(--bark);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
   body::before {
     content: '';
@@ -31,8 +34,10 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 100;
-    opacity: 0.6;
+    opacity: 0.5;
   }
+
+  /* ââ Nav ââ */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -41,263 +46,218 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 48px;
-    background: rgba(245,240,232,0.85);
+    background: rgba(248,244,237,0.88);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
   .nav-name {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    font-weight: 300;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--bark);
   }
-  .nav-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    color: var(--rust);
-    text-transform: uppercase;
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
   }
+  .nav-links a {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--dust);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--amber); }
+
+  /* ââ Hero ââ */
   .hero {
-    min-height: 100vh;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 120px 48px 60px;
-    max-width: 900px;
+    padding: 140px 48px 80px;
+    max-width: 920px;
     margin: 0 auto;
+    width: 100%;
   }
   .hero-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 0.2em;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--rust);
-    margin-bottom: 32px;
+    color: var(--amber);
+    margin-bottom: 24px;
     opacity: 0;
     animation: fadeUp 0.8s ease forwards 0.2s;
   }
   .hero-name {
-    font-size: clamp(52px, 8vw, 96px);
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(60px, 9vw, 112px);
     font-weight: 300;
-    line-height: 0.95;
+    line-height: 0.92;
     letter-spacing: -0.02em;
     margin-bottom: 40px;
     opacity: 0;
     animation: fadeUp 0.9s ease forwards 0.4s;
   }
-  .hero-name em { font-style: italic; color: var(--rust); }
+  .hero-name em {
+    font-style: italic;
+    color: var(--amber);
+  }
   .hero-line {
-    width: 60px;
-    height: 1px;
-    background: var(--rust);
+    width: 48px;
+    height: 2px;
+    background: var(--amber);
     margin-bottom: 32px;
     opacity: 0;
     animation: expandLine 0.8s ease forwards 0.7s;
+    border-radius: 2px;
   }
-  .hero-sub {
-    font-size: 22px;
+  .hero-bio {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 19px;
     font-weight: 300;
-    line-height: 1.6;
-    max-width: 580px;
-    color: var(--ink);
+    line-height: 1.7;
+    max-width: 520px;
+    color: var(--bark);
     opacity: 0;
     animation: fadeUp 0.9s ease forwards 0.9s;
   }
-  .divider {
+
+  /* ââ Links section ââ */
+  .links-section {
+    max-width: 920px;
+    margin: 0 auto;
     width: 100%;
-    height: 1px;
-    background: var(--border);
-    max-width: 900px;
-    margin: 0 auto;
+    padding: 0 48px 80px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 1.1s;
   }
-  section {
-    padding: 80px 48px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 300;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
     margin-bottom: 48px;
   }
-  .career-list {
+  .link-card {
+    background: rgba(44,26,14,0.03);
+    border: 1px solid var(--border);
+    padding: 28px;
+    text-decoration: none;
+    color: var(--bark);
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    border-radius: 4px;
+    transition: background 0.2s ease, border-color 0.2s ease;
   }
-  .career-item {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 40px;
-    padding: 32px 0;
-    border-bottom: 1px solid var(--border);
+  .link-card:hover {
+    background: rgba(184,115,51,0.06);
+    border-color: rgba(184,115,51,0.3);
   }
-  .career-item:first-child { border-top: 1px solid var(--border); }
-  .career-meta {
-    font-family: 'DM Mono', monospace;
+  .link-card:hover .card-arrow { transform: translate(3px, -3px); }
+  .card-tag {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
-    font-weight: 300;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-    padding-top: 4px;
-    line-height: 1.8;
-  }
-  .career-meta strong {
-    display: block;
-    color: var(--rust);
-    letter-spacing: 0.1em;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    font-size: 10px;
-    margin-bottom: 4px;
+    color: var(--amber);
   }
-  .career-content h3 {
+  .card-title {
+    font-family: 'Fraunces', serif;
     font-size: 22px;
-    font-weight: 400;
-    margin-bottom: 8px;
+    font-weight: 300;
     letter-spacing: -0.01em;
+    line-height: 1.2;
   }
-  .career-content p {
-    font-size: 17px;
+  .card-desc {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
     font-weight: 300;
-    color: var(--muted);
-    line-height: 1.6;
+    color: var(--dust);
+    line-height: 1.55;
+    flex: 1;
   }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
+  .card-arrow {
+    font-size: 18px;
+    color: var(--amber);
+    margin-top: 6px;
+    transition: transform 0.2s ease;
+    display: inline-block;
   }
-  .about-text {
-    padding-right: 60px;
-    border-right: 1px solid var(--border);
-  }
-  .about-text p {
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 1.7;
-    margin-bottom: 20px;
-  }
-  .about-text p:last-child { margin-bottom: 0; }
-  .about-aside {
-    padding-left: 60px;
+
+  /* ââ Contact bar ââ */
+  .contact-bar {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
     gap: 32px;
   }
-  .aside-item { border-left: 2px solid var(--rust); padding-left: 20px; }
-  .aside-item .label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--rust);
-    margin-bottom: 6px;
-  }
-  .aside-item p {
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.5;
-    color: var(--ink);
-  }
-  .cta-section {
-    text-align: center;
-    padding: 100px 48px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .cta-eyebrow {
-    font-family: 'DM Mono', monospace;
+  .contact-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 0.2em;
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--rust);
-    margin-bottom: 32px;
+    color: var(--dust);
   }
-  .cta-headline {
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 48px;
+  .contact-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
   }
-  .cta-headline em { font-style: italic; color: var(--rust); }
-  .cta-button {
-    display: inline-block;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    font-weight: 300;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--cream);
-    background: var(--ink);
-    padding: 18px 48px;
+  .contact-links a {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--bark);
     text-decoration: none;
-    transition: background 0.3s ease, transform 0.2s ease;
-    margin-right: 16px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
   }
-  .cta-button:hover { background: var(--rust); transform: translateY(-2px); }
-  .cta-button.secondary {
-    color: var(--ink);
-    background: transparent;
-    border: 1px solid var(--ink);
-  }
-  .cta-button.secondary:hover { background: var(--ink); color: var(--cream); }
+  .contact-links a:hover { color: var(--amber); border-color: var(--amber); }
+
+  /* ââ Footer ââ */
   footer {
     border-top: 1px solid var(--border);
-    padding: 32px 48px;
+    padding: 22px 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  footer .f-name {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
+  .f-copy {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--dust);
+    letter-spacing: 0.02em;
   }
-  footer .f-note {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-  }
+
+  /* ââ Animations ââ */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
   @keyframes expandLine {
     from { opacity: 0; width: 0; }
-    to { opacity: 1; width: 60px; }
+    to { opacity: 1; width: 48px; }
   }
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ââ Mobile ââ */
   @media (max-width: 700px) {
     nav { padding: 16px 24px; }
+    .nav-links { gap: 20px; }
     .hero { padding: 120px 24px 60px; }
-    section { padding: 60px 24px; }
-    .career-item { grid-template-columns: 1fr; gap: 8px; }
-    .about-grid { grid-template-columns: 1fr; }
-    .about-text { padding-right: 0; border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 40px; margin-bottom: 40px; }
-    .about-aside { padding-left: 0; }
-    .cta-section { padding: 80px 24px; }
-    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .links-section { padding: 0 24px 60px; }
+    .links-grid { grid-template-columns: 1fr; }
+    .contact-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
+    footer { padding: 18px 24px; }
   }
 </style>
 </head>
@@ -305,107 +265,54 @@
 
 <nav>
   <span class="nav-name">Jesse Taylor</span>
-  <span class="nav-tag">Account Executive Â· San Francisco</span>
+  <ul class="nav-links">
+    <li><a href="/hire">Work</a></li>
+    <li><a href="mailto:jt@jessetaylor.info">Email</a></li>
+    <li><a href="https://linkedin.com/in/jessetaylor" target="_blank">LinkedIn</a></li>
+  </ul>
 </nav>
 
-<div class="hero">
-  <div class="hero-eyebrow">Account Executive Â· San Francisco / New York</div>
-  <h1 class="hero-name">Seven years<br>selling <em>hard things</em><br>to hard buyers.</h1>
+<main class="hero">
+  <div class="hero-eyebrow">San Francisco</div>
+  <h1 class="hero-name">Jesse<br><em>Taylor</em></h1>
   <div class="hero-line"></div>
-  <p class="hero-sub">I've spent my career in freight tech â Convoy, Parade, Vooma â selling software to operators and engineers who have high standards and low patience for a bad pitch. Now I'm looking for what's next.</p>
-</div>
+  <p class="hero-bio">Account executive. Seven years selling technical software into freight â Convoy, Parade, Vooma. Now looking for what's next in AI.</p>
+</main>
 
-<div class="divider"></div>
-
-<section class="reveal">
-  <div class="section-label">01 â Background</div>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>I run full-cycle sales â outbound to close. I've always generated my own pipeline and owned the deal from first email to signed contract.</p>
-      <p>Most of my buyers have been technical: operators, engineers, founders. I've learned to earn credibility through specifics rather than enthusiasm, and to diagnose a customer's problem before I talk about a solution.</p>
-      <p>I moved to the Bay Area because the most interesting work is happening here. I use AI tools every day, for my job and a side business I run. I'm looking for a sales role at a company that's building something that matters.</p>
-    </div>
-    <div class="about-aside">
-      <div class="aside-item">
-        <div class="label">Sales motion</div>
-        <p>Full-cycle, outbound-led. I know how to find the right person and take a deal from cold to closed without hand-holding.</p>
-      </div>
-      <div class="aside-item">
-        <div class="label">Buyer profile</div>
-        <p>Technical and operations buyers. Founders. Skeptical decision-makers who have been burned by software vendors before.</p>
-      </div>
-      <div class="aside-item">
-        <div class="label">What I'm looking for</div>
-        <p>A small number of teams building serious AI products. Not applying everywhere â taking this seriously.</p>
-      </div>
-    </div>
+<div class="links-section">
+  <div class="links-grid">
+    <a href="/hire" class="link-card">
+      <span class="card-tag">Open to work</span>
+      <span class="card-title">Hire me</span>
+      <span class="card-desc">My background, experience, and what I'm looking for in a next role.</span>
+      <span class="card-arrow">â</span>
+    </a>
+    <a href="/anthropic-ainative" class="link-card">
+      <span class="card-tag">Case study</span>
+      <span class="card-title">Anthropic AI-Native</span>
+      <span class="card-desc">Why I'd be a strong fit for Anthropic's AI-native sales motion.</span>
+      <span class="card-arrow">â</span>
+    </a>
+    <a href="/anthropic-industries" class="link-card">
+      <span class="card-tag">Case study</span>
+      <span class="card-title">Anthropic Industries</span>
+      <span class="card-desc">How I'd approach selling Claude into vertical industry segments.</span>
+      <span class="card-arrow">â</span>
+    </a>
   </div>
-</section>
 
-<div class="divider"></div>
-
-<section class="reveal">
-  <div class="section-label">02 â Experience</div>
-  <div class="career-list">
-    <div class="career-item">
-      <div class="career-meta">
-        <strong>Vooma</strong>
-        2023 â Present
-      </div>
-      <div class="career-content">
-        <h3>Account Executive</h3>
-        <p>AI-native freight tech startup. Full-cycle sales into mid-market and enterprise freight brokerages. Built pipeline from scratch in a new market segment.</p>
-      </div>
-    </div>
-    <div class="career-item">
-      <div class="career-meta">
-        <strong>Parade</strong>
-        2021 â 2023
-      </div>
-      <div class="career-content">
-        <h3>Account Executive</h3>
-        <p>Sold capacity management software to freight brokerages. Entered a market with no established proof points and built the playbook from the ground up. Hit quota.</p>
-      </div>
-    </div>
-    <div class="career-item">
-      <div class="career-meta">
-        <strong>Convoy</strong>
-        2018 â 2021
-      </div>
-      <div class="career-content">
-        <h3>Account Executive</h3>
-        <p>Digital freight network. Sold to shippers ranging from mid-market to enterprise. Learned enterprise sales motion, multi-stakeholder navigation, and how to close in a competitive market.</p>
-      </div>
-    </div>
+  <div class="contact-bar">
+    <span class="contact-label">Get in touch</span>
+    <ul class="contact-links">
+      <li><a href="mailto:jt@jessetaylor.info">jt@jessetaylor.info</a></li>
+      <li><a href="https://linkedin.com/in/jessetaylor" target="_blank">LinkedIn</a></li>
+    </ul>
   </div>
-</section>
-
-<div class="divider"></div>
-
-<div class="cta-section reveal">
-  <div class="cta-eyebrow">Let's talk</div>
-  <h2 class="cta-headline">Find me in<br><em>30 minutes.</em></h2>
-  <a href="mailto:jt@jessetaylor.info" class="cta-button">Send me an email</a>
-  <a href="https://linkedin.com/in/jessetaylor" class="cta-button secondary">LinkedIn</a>
 </div>
 
 <footer>
-  <span class="f-name">Jesse Taylor Â· jt@jessetaylor.info</span>
-  <span class="f-note">San Francisco Â· 2026</span>
+  <span class="f-copy">jessetaylor.info Â· 2026</span>
 </footer>
-
-<script>
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
-</script>
 
 </body>
 </html>
